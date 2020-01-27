@@ -1,0 +1,21 @@
+package drools.myrule.person
+ 
+import com.example.drools_rule_engine.model.Person;
+
+rule "person-meeting"
+    salience 2
+    when
+        $person:Person(grade>1)
+    then
+        $person.setMeetingShow(true);
+        update($person)
+end
+
+rule "person-task"
+    salience 1
+    when
+        $person:Person(grade>2)
+    then
+        $person.setTaskShow(true);
+        update($person)
+end

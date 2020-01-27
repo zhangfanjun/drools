@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.drools.org/xsd/kmodule">
+
+    <kbase name="personKbase" packages="drools.myrule.person">
+        <ksession name="personKession"/>
+    </kbase>
+
+    <kbase name="meetingKbase" packages="drools.myrule.meeting">
+        <ksession name="meetingKession"/>
+    </kbase>
+</kmodule>
