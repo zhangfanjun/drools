@@ -1,0 +1,13 @@
+{
+	"rule":
+"package drools.myrule.meeting\nimport com.example.drools_rule_engine.model.MeetingVO;\nrule \"meeting-rule\"\n when \n$person:MeetingVO() \nthen \n$person.setJoinShow(true);\n$person.setTotalShow(true);\nupdate($person)\nend",
+	"content": {
+		"title": "会议",
+		"totalShow":false,
+		"expireShow":false,
+		"joinShow":false,
+		"totalNumber":99,
+		"expireNumber":33,
+		"joinNumber":66
+	}
+}
