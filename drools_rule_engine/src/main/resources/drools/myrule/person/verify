@@ -1,0 +1,11 @@
+{
+	"rule":
+	"package drools.myrule.person\nimport com.example.drools_rule_engine.model.Person;\nrule\"person-meeting\"\nsalience 2\nwhen\n$person:Person(grade>1)\nthen\n$person.setMeetingShow(true);\nupdate($person)\nend\nrule \"person-task\"\nsalience 1\nwhen\n$person:Person(grade>2)\nthen\n$person.setTaskShow(true);\nupdate($person)\nend\n",
+	"content": {
+		"account": "123",
+		"name": "123name",
+		"grade": 3,
+		"meetingShow": false,
+		"taskShow": false
+	}
+}
