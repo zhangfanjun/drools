@@ -1,0 +1,12 @@
+package drools.myrule.meeting
+
+import com.example.drools_rule_engine.model.MeetingVO;
+
+rule "meeting-rule"
+    when
+        $person:MeetingVO()
+    then
+        $person.setJoinShow(true);
+        $person.setTotalShow(true);
+        update($person)
+end
