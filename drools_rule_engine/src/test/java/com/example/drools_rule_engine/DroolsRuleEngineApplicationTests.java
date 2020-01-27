@@ -24,7 +24,7 @@ class DroolsRuleEngineApplicationTests {
                 "}";
         System.out.println(verify);
         System.out.println("=====================================");
-        String rule="package com.xu.drools;\n" +
+        String rule="package com.sf.drools;\n" +
                 "import com.xu.drools.bean.Person;\n" +
                 "rule \"2\"\n" +
                 "\twhen\n" +

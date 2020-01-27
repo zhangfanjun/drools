@@ -2,10 +2,7 @@ package com.example.drools_rule_engine.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.drools_rule_engine.mapper.RuleDao;
-import com.example.drools_rule_engine.model.MeetingVO;
-import com.example.drools_rule_engine.model.MyRule;
-import com.example.drools_rule_engine.model.Person;
-import com.example.drools_rule_engine.model.ResponseVO;
+import com.example.drools_rule_engine.model.*;
 import com.example.drools_rule_engine.service.RuleEngineService;
 import com.example.drools_rule_engine.service.RuleStaticEngineService;
 import com.example.drools_rule_engine.util.RuleUtil;
@@ -54,24 +51,26 @@ public class RulesManagerController {
      * 个人展示模块的规则验证
      * */
     @RequestMapping(value = "/person/verify", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public String personRuleVerify(@RequestParam(value = "rule") String rule,
-                             @RequestBody Person person) {
+    public Person personRuleVerify(@RequestBody RuleParam<Person> param) {
+        String rule = param.getRule();
+        Person person = param.getContent();
         ArrayList<Object> list = new ArrayList<>();
         list.add(person);
         RuleUtil.fireRuleAndDestroy(list,rule);
-        return JSON.toJSONString(person);
+        return person;
     }
 
     /**
      * 会议的规则验证
      * */
     @RequestMapping(value = "/meeting/verify", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public String meetingRuleVerify(@RequestParam(value = "rule") String rule,
-                                   @RequestBody MeetingVO meetingVO) {
+    public MeetingVO meetingRuleVerify(@RequestBody RuleParam<MeetingVO> param) {
+        String rule = param.getRule();
+        MeetingVO meetingVO = param.getContent();
         ArrayList<Object> list = new ArrayList<>();
         list.add(meetingVO);
         RuleUtil.fireRuleAndDestroy(list,rule);
-        return JSON.toJSONString(meetingVO);
+        return meetingVO;
     }
 
     /**
