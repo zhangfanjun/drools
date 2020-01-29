@@ -16,4 +16,9 @@ public interface RuleEngineService {
      * 会议模块的规则执行
      * */
     MeetingVO excuteMeetingRule(MeetingVO meetingVO);
+
+    /**
+     * 将输入流转为string
+     * */
+    String handleInputStreamToString(InputStream inputStream);
 }

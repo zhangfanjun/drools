@@ -13,8 +13,9 @@ import org.kie.internal.io.ResourceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class RuleEngineServiceImpl implements RuleEngineService {
     public Person excutePersonRule(Person person) {
 //        获取人员展示模块的规则，获取的规则按照权重反序
         List<MyRule> ruleList = rulesDao.getRuleByType("person");
-        if(CollectionUtils.isEmpty(ruleList)){
+        if (CollectionUtils.isEmpty(ruleList)) {
             return person;
         }
         String rule;
@@ -37,17 +38,37 @@ public class RuleEngineServiceImpl implements RuleEngineService {
             rule = myRule.getRuleContent();
             ArrayList<Object> list = new ArrayList<>();
             list.add(person);
-            RuleUtil.fireRule(list,rule);
+            RuleUtil.fireRule(list, rule);
         }
 
         return person;
     }
 
     @Override
+    public String handleInputStreamToString(InputStream inputStream) {
+        InputStreamReader reader = new InputStreamReader(inputStream);
+        BufferedReader bufferedReader = new BufferedReader(reader);
+        StringBuilder builder = new StringBuilder();
+        String row;
+        try {
+            while ((row = bufferedReader.readLine())!=null) {
+                String trim = row.trim();
+                if(!StringUtils.isEmpty(trim)){
+                    log.info("==============={}",row);
+                    builder.append(trim).append("\n");
+                }
+            }
+            return builder.toString();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Override
     public MeetingVO excuteMeetingRule(MeetingVO meetingVO) {
         //        获取人员展示模块的规则
         List<MyRule> ruleList = rulesDao.getRuleByType("meeting");
-        if(CollectionUtils.isEmpty(ruleList)){
+        if (CollectionUtils.isEmpty(ruleList)) {
             return meetingVO;
         }
         String rule;
@@ -55,7 +76,7 @@ public class RuleEngineServiceImpl implements RuleEngineService {
             rule = myRule.getRuleContent();
             ArrayList<Object> list = new ArrayList<>();
             list.add(meetingVO);
-            RuleUtil.fireRule(list,rule);
+            RuleUtil.fireRule(list, rule);
         }
 
         return meetingVO;

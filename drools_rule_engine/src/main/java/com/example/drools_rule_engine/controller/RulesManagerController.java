@@ -30,11 +30,21 @@ public class RulesManagerController {
     @Autowired
     private RuleDao rulesDao;
 
+    @RequestMapping("/drlToString")
+    public String drlTOString(MultipartFile file){
+        try {
+            InputStream inputStream = file.getInputStream();
+            return ruleEngineService.handleInputStreamToString(inputStream);
+        } catch (IOException e) {
+            return "系统异常";
+        }
+    }
+
     /**
      * 规则的格式转换和验证
      * */
     @RequestMapping(value = "/getRuleXls", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
-    public String getRuleXls(@RequestParam(value = "file") MultipartFile file) throws IOException {
+    public String getRuleXls(MultipartFile file) throws IOException {
         InputStream inputStream = file.getInputStream();
         String rule = ruleEngineService.getRuleTable(inputStream);
 //        try {
@@ -44,7 +54,7 @@ public class RulesManagerController {
 //            e.printStackTrace();
 //            return new JsonResponse(e);
 //        }
-        return null;
+        return rule;
     }
 
     /**
