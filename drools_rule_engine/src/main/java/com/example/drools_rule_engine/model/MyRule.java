@@ -28,12 +28,12 @@ public class MyRule {
     /**
      * 创建时间
      * */
-    private Date create_time;
+    private Date createTime;
 
     /**
      * 修改时间
      * */
-    private Date update_time;
+    private Date updateTime;
 
     /**
      * 规则的权限
